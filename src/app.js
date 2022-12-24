@@ -65,7 +65,8 @@ function ShowTempreture(response) {
 
   document
     .getElementById("icon")
-    .setAttribute("alt", response.data.condition.description);
+    .setAttribute("alt", response.data.condition.description
+    );
 
   let time = new Date(response.data.time * 1000);
   document.getElementById("date").innerHTML = formatDate(time);
