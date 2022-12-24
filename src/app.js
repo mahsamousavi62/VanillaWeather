@@ -31,6 +31,10 @@ function call(event) {
   event.preventDefault();
 
   city = document.getElementById("city-input").value;
+  search(city);
+}
+
+function search(city) {
   let url = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
   axios.get(url).then(ShowTempreture);
@@ -79,3 +83,5 @@ let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 let form = document.getElementById("search-form");
 form.addEventListener("submit", call);
+
+search("Lisbon");
