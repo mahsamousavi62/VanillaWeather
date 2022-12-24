@@ -1,6 +1,6 @@
 let apiKey = "831145553ta05682f82of176f82b2b14";
 
-let celciosTempreture = 0;
+let celsiusTemperature = null;
 
 function formatDate(date) {
   let hours = date.getHours();
@@ -36,6 +36,24 @@ function call(event) {
   axios.get(url).then(ShowTempreture);
 }
 
+function displayFahrenheitTemperature(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let fahrenheiTemperature = (celsiusTemperature * 9) / 5 + 32;
+  temperatureElement.innerHTML = Math.round(fahrenheiTemperature);
+}
+
+function displayCelsiusTemperature(event) {
+  event.preventDefault();
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
+}
+
 function ShowTempreture(response) {
   //   console.log(response.data);
 
@@ -46,14 +64,18 @@ function ShowTempreture(response) {
   document.getElementById("date").innerHTML = formatDate(time);
   document.getElementById("city").innerHTML = response.data.city;
 
-  celciosTempreture = Math.round(response.data.temperature.current);
-  document.getElementById("temperature").innerHTML = celciosTempreture;
+  celsiusTemperature = Math.round(response.data.temperature.current);
+  document.getElementById("temperature").innerHTML = celsiusTemperature;
   document.getElementById("humidity").innerHTML =
     response.data.temperature.humidity;
   document.getElementById("wind").innerHTML = response.data.wind.speed;
   document.getElementById("description").innerHTML =
     response.data.condition.description;
 }
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", displayCelsiusTemperature);
 let form = document.getElementById("search-form");
 form.addEventListener("submit", call);
