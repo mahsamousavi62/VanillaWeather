@@ -59,11 +59,14 @@ function displayCelsiusTemperature(event) {
 }
 
 function ShowTempreture(response) {
-  //   console.log(response.data);
-
   document
     .getElementById("icon")
     .setAttribute("src", response.data.condition.icon_url);
+
+  document
+    .getElementById("icon")
+    .setAttribute("alt", response.data.condition.description);
+
   let time = new Date(response.data.time * 1000);
   document.getElementById("date").innerHTML = formatDate(time);
   document.getElementById("city").innerHTML = response.data.city;
@@ -73,6 +76,7 @@ function ShowTempreture(response) {
   document.getElementById("humidity").innerHTML =
     response.data.temperature.humidity;
   document.getElementById("wind").innerHTML = response.data.wind.speed;
+
   document.getElementById("description").innerHTML =
     response.data.condition.description;
 }
